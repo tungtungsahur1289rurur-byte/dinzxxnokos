@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>DINZXX NOKOS | Top Up & Voucher Murah All Country</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fc 0%, #eef2f9 100%);
+            min-height: 100vh;
+            padding: 1.5rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .store-name {
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: linear-gradient(120deg, #1E3C72, #2A5298);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .tagline {
+            color: #4a5568;
+            margin-top: 0.5rem;
+            font-weight: 500;
+            background: rgba(255,255,255,0.6);
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.5rem;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+            transition: all 0.25s ease;
+            border: 1px solid rgba(255,255,255,0.4);
+            backdrop-filter: blur(2px);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+            border-color: #cbd5e1;
+        }
+
+        .country-flag {
+            font-size: 2.6rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #2c3e66;
+            margin: 0.7rem 0;
+        }
+
+        .price-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5b6e8c;
+        }
+
+        .btn-buy {
+            width: 100%;
+            background: #1e293b;
+            color: white;
+            border: none;
+            padding: 12px 0;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .btn-buy:hover {
+            background: #0f172a;
+            transform: scale(0.98);
+        }
+
+        /* Modal umum */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 550px;
+            width: 100%;
+            border-radius: 2rem;
+            padding: 1.8rem;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.3);
+            animation: fadeSlideUp 0.2s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        /* Form & payment */
+        .promo-section {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .promo-input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .promo-input-group input {
+            flex: 1;
+            padding: 0.7rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 60px;
+            font-size: 0.9rem;
+        }
+
+        .btn-apply {
+            background: #2c3e66;
+            color: white;
+            border: none;
+            padding: 0 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .total-price {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin: 1rem 0;
+            text-align: right;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 1rem;
+        }
+
+        .method-item {
+            background: #f1f5f9;
+            border-radius: 1rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .qris-img {
+            max-width: 200px;
+            margin: 0.5rem auto;
+            display: block;
+            border-radius: 1rem;
+            background: white;
+            padding: 0.5rem;
+        }
+
+        .copy-number {
+            background: #e9ecef;
+            padding: 0.5rem;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .btn-confirm-pay {
+            background: #059669;
+            color: white;
+            width: 100%;
+            padding: 0.9rem;
+            border: none;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .promo-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .promo-item {
+            background: #f1f5f9;
+            padding: 0.8rem 1rem;
+            border-radius: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .promo-code {
+            font-weight: 700;
+            font-family: monospace;
+            background: #e2e8f0;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+        }
+
+        .btn-del, .btn-edit {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+
+        .add-promo-form {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .add-promo-form input {
+            padding: 0.7rem;
+            border-radius: 60px;
+            border: 1px solid #cbd5e1;
+            flex: 1;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #5b6e8c;
+        }
+
+        .admin-toggle {
+            background: #e2e8f0;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .badge {
+            background: #10b98120;
+            color: #065f46;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 1rem; }
+            .product-grid { gap: 1rem; }
+            .store-name { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Header Toko -->
+    <div class="header">
+        <div class="store-name">⚡ DINZXX NOKOS</div>
+        <div class="tagline">💸 Top Up Murah Semua Negara | QRIS • DANA • GoPay</div>
+    </div>
+
+    <!-- Daftar Produk (Nokos All Country) -->
+    <div class="product-grid" id="productGrid"></div>
+
+    <!-- Modal Checkout & Pembayaran -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🛒 Detail Pesanan</h3>
+                <button class="close-modal" onclick="closeCheckoutModal()">✕</button>
+            </div>
+            <div id="checkoutDetails">
+                <p><strong>Produk:</strong> <span id="modalProductName"></span></p>
+                <p><strong>Harga:</strong> Rp <span id="modalProductPrice"></span></p>
+                <div class="promo-section">
+                    <label>🎟️ Kode Promo</label>
+                    <div class="promo-input-group">
+                        <input type="text" id="promoCodeInput" placeholder="contoh: DINZXX10">
+                        <button class="btn-apply" onclick="applyPromoCode()">Terapkan</button>
+                    </div>
+                    <div id="promoMessage" style="font-size:0.8rem; margin-top: 6px; color:#4b5563;"></div>
+                </div>
+                <div class="total-price">
+                    Total: Rp <span id="finalTotal">0</span>
+                </div>
+            </div>
+            <div id="paymentSection" style="display: none;">
+                <div class="payment-methods">
+                    <div class="method-item">
+                        <strong>🔳 QRIS (Semua Aplikasi)</strong>
+                        <img src="https://l.top4top.io/p_37412gxux0.jpeg" alt="QRIS DINZXX" class="qris-img" style="max-width: 180px;">
+                        <p style="font-size:12px;">Scan QRIS di atas untuk pembayaran</p>
+                    </div>
+                    <div class="method-item">
+                        <strong>💰 DANA</strong>
+                        <div class="copy-number" onclick="copyToClipboard('089515549623')">
+                            📱 089515549623 <span style="font-size:12px;">(klik salin)</span>
+                        </div>
+                    </div>
+                    <div class="method-item">
+                        <strong>🟢 GoPay</strong>
+                        <div class="copy-number" onclick="copyToClipboard('089515549623')">
+                            📱 089515549623 <span style="font-size:12px;">(klik salin)</span>
+                        </div>
+                    </div>
+                </div>
+                <p style="text-align: center; font-size: 13px; background:#eef2ff; padding: 8px; border-radius: 40px;">
+                    ✅ Transfer sesuai total & kirim bukti ke WhatsApp admin (jika diperlukan)
+                </p>
+                <button class="btn-confirm-pay" onclick="closeCheckoutModal(); alert('Terima kasih! Silakan lakukan pembayaran sesuai metode di atas. Pesanan akan diproses setelah pembayaran dikonfirmasi.')">
+                    ✔️ Saya sudah transfer / Scan QRIS
+                </button>
+            </div>
+            <button id="nextToPaymentBtn" class="btn-confirm-pay" style="background:#2c3e66;" onclick="showPaymentMethod()">Lanjut ke Pembayaran</button>
+        </div>
+    </div>
+
+    <!-- Admin Panel (Owner bisa setting promo) -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h4>🔧 Owner Panel - Manajemen Kode Promo</h4>
+            <button class="admin-toggle" id="adminLockBtn" onclick="toggleAdminAccess()">🔒 Admin Mode</button>
+        </div>
+        <div id="adminContent" style="display: none;">
+            <div class="promo-list" id="promoListAdmin"></div>
+            <div class="add-promo-form">
+                <input type="text" id="newPromoCode" placeholder="Kode promo (contoh: HEMAT20)">
+                <input type="number" id="newPromoDiscount" placeholder="Diskon % (1-100)" min="1" max="100">
+                <button class="btn-apply" onclick="addNewPromo()">➕ Tambah Promo</button>
+            </div>
+            <p style="font-size:12px; margin-top: 12px;">* Promo aktif berupa persentase diskon. Owner bisa hapus/edit kapan saja.</p>
+        </div>
+        <div id="adminLockMsg" style="padding: 0.5rem; text-align: center; color: #4b5563;">🔐 Klik "Admin Mode" dan masukkan password owner untuk mengelola promo.</div>
+    </div>
+
+    <div class="footer">
+        <span>© DINZXX NOKOS | Support all country | Pembayaran QRIS • DANA • GOPAY</span>
+    </div>
+</div>
+
+<script>
+    // ======================= DATA PRODUK =======================
+    const products = [
+        { id: 1, name: "🇮🇩 Nokos Indonesia", price: 10000, country: "Indonesia" },
+        { id: 2, name: "🇲🇾 Nokos Malaysia", price: 12000, country: "Malaysia" },
+        { id: 3, name: "🇸🇬 Nokos Singapura", price: 15000, country: "Singapore" },
+        { id: 4, name: "🇹🇭 Nokos Thailand", price: 8000, country: "Thailand" },
+        { id: 5, name: "🇻🇳 Nokos Vietnam", price: 7000, country: "Vietnam" },
+        { id: 6, name: "🇵🇭 Nokos Filipina", price: 9000, country: "Philippines" },
+        { id: 7, name: "🇰🇭 Nokos Kamboja", price: 6000, country: "Cambodia" },
+        { id: 8, name: "🇲🇲 Nokos Myanmar", price: 5000, country: "Myanmar" },
+        { id: 9, name: "🇮🇳 Nokos India", price: 11000, country: "India" },
+        { id: 10, name: "🇵🇰 Nokos Pakistan", price: 7500, country: "Pakistan" }
+    ];
+
+    // ======================= PROMO STORAGE (DEFAULT) =======================
+    let promos = []; // array { code, discountPercent, active }
+
+    function loadPromosFromStorage() {
+        const stored = localStorage.getItem("dinzxx_promos");
+        if (stored) {
+            promos = JSON.parse(stored);
+        } else {
+            // default promo
+            promos = [
+                { code: "DINZXX10", discountPercent: 10, active: true },
+                { code: "MURAH5K", discountPercent: 5, active: true },
+                { code: "GOPAY20", discountPercent: 20, active: true }
+            ];
+            savePromosToStorage();
+        }
+    }
+
+    function savePromosToStorage() {
+        localStorage.setItem("dinzxx_promos", JSON.stringify(promos));
+    }
+
+    // get diskon berdasarkan kode
+    function getPromoDiscount(code) {
+        const promo = promos.find(p => p.code.toUpperCase() === code.toUpperCase() && p.active === true);
+        return promo ? promo.discountPercent : 0;
+    }
+
+    // ======================= RENDER PRODUK =======================
+    function renderProducts() {
+        const grid = document.getElementById("productGrid");
+        if (!grid) return;
+        grid.innerHTML = "";
+        products.forEach(prod => {
+            const card = document.createElement("div");
+            card.className = "product-card";
+            card.innerHTML = `
+                <div class="country-flag">${prod.name.split(' ')[0]}</div>
+                <div class="product-name">${prod.name}</div>
+                <div class="product-price">Rp ${prod.price.toLocaleString()}</div>
+                <div class="price-label">💰 Langsung masuk saldo / Voucher</div>
+                <button class="btn-buy" data-id="${prod.id}">🛍️ Beli Sekarang</button>
+            `;
+            grid.appendChild(card);
+        });
+
+        // event listener tombol beli
+        document.querySelectorAll('.btn-buy').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.getAttribute('data-id'));
+                const product = products.find(p => p.id === id);
+                if (product) openCheckout(product);
+            });
+        });
+    }
+
+    // Variabel untuk checkout saat ini
+    let currentProduct = null;
+    let appliedDiscountPercent = 0;
+    let appliedCode = "";
+
+    function openCheckout(product) {
+        currentProduct = product;
+        appliedDiscountPercent = 0;
+        appliedCode = "";
+        document.getElementById("modalProductName").innerText = product.name;
+        document.getElementById("modalProductPrice").innerText = product.price.toLocaleString();
+        document.getElementById("finalTotal").innerText = product.price.toLocaleString();
+        document.getElementById("promoCodeInput").value = "";
+        document.getElementById("promoMessage").innerHTML = "";
+        document.getElementById("paymentSection").style.display = "none";
+        document.getElementById("nextToPaymentBtn").style.display = "block";
+        document.getElementById("checkoutModal").style.display = "flex";
+    }
+
+    function applyPromoCode() {
+        if (!currentProduct) return;
+        const inputCode = document.getElementById("promoCodeInput").value.trim();
+        if (inputCode === "") {
+            appliedDiscountPercent = 0;
+            appliedCode = "";
+            document.getElementById("promoMessage").innerHTML = "⚠️ Masukkan kode promo";
+            updateTotalPrice();
+            return;
+        }
+        const discount = getPromoDiscount(inputCode);
+        if (discount > 0) {
+            appliedDiscountPercent = discount;
+            appliedCode = inputCode;
+            document.getElementById("promoMessage").innerHTML = `✅ Kode promo berhasil! Diskon ${discount}%`;
+            updateTotalPrice();
+        } else {
+            appliedDiscountPercent = 0;
+            appliedCode = "";
+            document.getElementById("promoMessage").innerHTML = "❌ Kode promo tidak valid atau tidak aktif";
+            updateTotalPrice();
+        }
+    }
+
+    function updateTotalPrice() {
+        if (!currentProduct) return;
+        let original = currentProduct.price;
+        let finalPrice = original;
+        if (appliedDiscountPercent > 0) {
+            finalPrice = original * (1 - appliedDiscountPercent / 100);
+            finalPrice = Math.floor(finalPrice);
+        }
+        document.getElementById("finalTotal").innerText = finalPrice.toLocaleString();
+    }
+
+    function showPaymentMethod() {
+        if (!currentProduct) return;
+        // update total akhir jika ada promo diapply
+        updateTotalPrice();
+        // tampilkan section payment dan sembunyikan tombol lanjut
+        document.getElementById("paymentSection").style.display = "block";
+        document.getElementById("nextToPaymentBtn").style.display = "none";
+        // optional tambahkan note total di payment
+        const finalVal = document.getElementById("finalTotal").innerText;
+        const payInfo = document.querySelector("#paymentSection .payment-methods");
+        if (!document.getElementById("totalNotif")) {
+            const totalNote = document.createElement("div");
+            totalNote.id = "totalNotif";
+            totalNote.style.background = "#e6f7e6";
+            totalNote.style.padding = "8px";
+            totalNote.style.borderRadius = "40px";
+            totalNote.style.marginBottom = "12px";
+            totalNote.style.textAlign = "center";
+            totalNote.innerHTML = `💵 TOTAL YANG HARUS DIBAYAR: Rp ${finalVal}`;
+            document.getElementById("paymentSection").insertBefore(totalNote, payInfo);
+        } else {
+            document.getElementById("totalNotif").innerHTML = `💵 TOTAL YANG HARUS DIBAYAR: Rp ${finalVal}`;
+        }
+    }
+
+    function closeCheckoutModal() {
+        document.getElementById("checkoutModal").style.display = "none";
+        currentProduct = null;
+    }
+
+    // ======================= ADMIN PANEL (Owner Setting Promo) =======================
+    let adminAuthenticated = false;
+
+    function toggleAdminAccess() {
+        if (!adminAuthenticated) {
+            const pwd = prompt("🔐 Owner Verification:\nMasukkan password admin untuk mengatur promo:", "");
+            if (pwd === "admin123") {  // password sederhana, owner bisa ubah di kode
+                adminAuthenticated = true;
+                document.getElementById("adminContent").style.display = "block";
+                document.getElementById("adminLockMsg").style.display = "none";
+                renderAdminPromoList();
+                document.getElementById("adminLockBtn").innerHTML = "🔓 Logout Admin";
+            } else {
+                alert("Password salah! Akses ditolak.");
+                adminAuthenticated = false;
+            }
+        } else {
+            adminAuthenticated = false;
+            document.getElementById("adminContent").style.display = "none";
+            document.getElementById("adminLockMsg").style.display = "block";
+            document.getElementById("adminLockBtn").innerHTML = "🔒 Admin Mode";
+        }
+    }
+
+    function renderAdminPromoList() {
+        const container = document.getElementById("promoListAdmin");
+        if (!container) return;
+        if (promos.length === 0) {
+            container.innerHTML = "<p style='text-align:center;'>Belum ada promo, tambahkan sekarang.</p>";
+            return;
+        }
+        container.innerHTML = "";
+        promos.forEach((promo, idx) => {
+            const div = document.createElement("div");
+            div.className = "promo-item";
+            div.innerHTML = `
+                <div>
+                    <span class="promo-code">${promo.code}</span> 
+                    <span class="badge">${promo.discountPercent}% OFF</span>
+                    ${promo.active ? '✅ Aktif' : '❌ Nonaktif'}
+                </div>
+                <div>
+                    <button class="btn-edit" onclick="editPromo(${idx})" title="Edit">✏️</button>
+                    <button class="btn-del" onclick="deletePromo(${idx})" title="Hapus">🗑️</button>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function addNewPromo() {
+        const codeInput = document.getElementById("newPromoCode").value.trim();
+        const discInput = parseInt(document.getElementById("newPromoDiscount").value);
+        if (!codeInput || isNaN(discInput) || discInput < 1 || discInput > 100) {
+            alert("Masukkan kode promo dan diskon persen (1-100)");
+            return;
+        }
+        const existing = promos.find(p => p.code.toUpperCase() === codeInput.toUpperCase());
+        if (existing) {
+            alert("Kode promo sudah ada! Gunakan kode lain.");
+            return;
+        }
+        promos.push({
+            code: codeInput.toUpperCase(),
+            discountPercent: discInput,
+            active: true
+        });
+        savePromosToStorage();
+        renderAdminPromoList();
+        document.getElementById("newPromoCode").value = "";
+        document.getElementById("newPromoDiscount").value = "";
+        alert(`Promo ${codeInput.toUpperCase()} berhasil ditambahkan!`);
+    }
+
+    function editPromo(index) {
+        const promo = promos[index];
+        const newCode = prompt("Edit kode promo:", promo.code);
+        if (newCode && newCode.trim() !== "") {
+            const newDisc = prompt("Edit diskon persen (angka):", promo.discountPercent);
+            if (newDisc && !isNaN(parseInt(newDisc))) {
+                promo.code = newCode.toUpperCase();
+                promo.discountPercent = parseInt(newDisc);
+                savePromosToStorage();
+                renderAdminPromoList();
+                alert("Promo berhasil diupdate!");
+            } else {
+                alert("Diskon harus angka");
+            }
+        }
+    }
+
+    function deletePromo(index) {
+        if (confirm("Hapus promo ini?")) {
+            promos.splice(index, 1);
+            savePromosToStorage();
+            renderAdminPromoList();
+        }
+    }
+
+    // utility copy nomor
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert(`Nomor ${text} telah disalin ke clipboard.`);
+        }).catch(() => {
+            prompt("Salin manual:", text);
+        });
+    }
+
+    // tambahan: fungsi untuk render ulang jika ada perubahan di admin
+    // tetapi tidak perlu refresh karena produk tidak terpengaruh
+
+    // ======================= INITIALIZE =======================
+    function init() {
+        loadPromosFromStorage();
+        renderProducts();
+        // tutup modal klik background
+        window.onclick = function(event) {
+            const modal = document.getElementById("checkoutModal");
+            if (event.target === modal) {
+                closeCheckoutModal();
+            }
+        };
+        // jika admin belum login, sembunyikan konten admin
+        document.getElementById("adminContent").style.display = "none";
+        document.getElementById("adminLockMsg").style.display = "block";
+    }
+
+    init();
+</script>
+</body>
+</html>
